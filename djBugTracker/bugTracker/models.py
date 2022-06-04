@@ -31,7 +31,7 @@ class Project(models.Model):
     name         = models.CharField(max_length=20)
     # Like Marketing, Website, Support
     field        = models.CharField(max_length=10)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at   = models.DateTimeField(auto_now_add=True)
     # The one who created the Project
     creator      = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name="projects_as_creator")
     # Other people who also have access to this project 

@@ -4,7 +4,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    re_path(r"^$", views.DashbordView.as_view(), name="dashbord"),
+    path("projects/", views.DashbordView.as_view(), name="dashbord"),
     path('auth/', include('rest_auth.urls')),
     path('auth/register/', include('rest_auth.registration.urls'))
 ]

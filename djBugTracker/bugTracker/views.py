@@ -15,6 +15,9 @@ class DashbordView(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request):
-        project_serializer = ProjectSerializer(Project.objects.filter(creator=request.user))
+        project_serializer = ProjectSerializer(Project.objects.filter(creator=request.user), many=True)
+        user_serializer = UserSerializer(user_model.objects.all(), many=True)
 
-        return Response({"projects": project_serializer.data,})
+        context = {'projects': project_serializer.data, 'users': user_serializer.data, }
+
+        return Response(context)
