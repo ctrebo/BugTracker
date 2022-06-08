@@ -36,7 +36,7 @@ class Project(models.Model):
     creator      = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name="projects_as_creator")
     # Other people who also have access to this project 
     team_members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="projects", blank=True)
-    picture      = models.ImageField(upload_to="image_post", default="defaul_project_picture.png")
+    picture      = models.ImageField(upload_to="image_post", default="default_project_picture.png")
 
     class Meta:
         ordering = ["-created_at"]

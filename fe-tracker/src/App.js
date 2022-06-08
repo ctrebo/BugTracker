@@ -31,6 +31,7 @@ const App = () => {
 			}
 		});
 		setProjects(res.data['projects']);
+		console.log(res.data['projects'])
 	};
 
 	const getLoggedInUser = async () => {
@@ -47,7 +48,7 @@ const App = () => {
 	return (
 		<Router>
 			<NavbarComp />
-			<main id="main">
+			<main id="main" className='bg-dashboard'>
 				<Container className="pt-4">
 					<Routes>
 						<Route path="/" element={<Dashboard projects={projects} />} />

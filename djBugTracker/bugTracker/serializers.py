@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from rest_framework.serializers import DateTimeField
+from rest_framework.serializers import DateTimeField, ImageField
 from .models import Project, CustomUser, Issue
-
 from django.contrib.auth import get_user_model
 
 user_model = get_user_model()
@@ -19,10 +18,11 @@ class ProjectSerializer(serializers.ModelSerializer):
     creator = UserSerializer(required=True)
     team_members = UserSerializer(many=True, required=True)
     created_at = DateTimeField(format=None, input_formats=None)
+    picture = ImageField(required=True)
 
     class Meta:
         model = Project
-        fields = ("name", "field", "created_at", "creator", "team_members", "picture")
+        fields = ("name", "field", "created_at", "creator", "team_members", "picture", "id")
 
 class IssueSerializer(serializers.ModelSerializer):
     project = ProjectSerializer(required=True)
@@ -31,7 +31,7 @@ class IssueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Issue
-        fields = ("name", "project", "creator", "description", "status", "priority", "issue_type", )
+        fields = ("name", "project", "creator", "description", "status", "priority", "issue_type", "id")
 
 
 
