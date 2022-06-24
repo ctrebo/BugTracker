@@ -1,21 +1,35 @@
 import React from 'react'
 import { useMemo } from 'react'
 import { Row, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 
-const AddUserToProject = ({ selectedUsers, setSelectedUsers, user }) => {
+
+const AddUserToProject = ({ selectedUsers, setSelectedUsers, user, onlyOne }) => {
     
     const isActive = useMemo(()=> {
-        return selectedUsers.includes(user);
+        if (onlyOne) {
+            return selectedUsers === user.username;
+        } else {
+            return selectedUsers.includes(user.id);
+        }
+        
     }, [selectedUsers]);
 
     const addOrRemoveSelected = (e) => {
-        if (!selectedUsers.includes(user)) {
-            setSelectedUsers([...selectedUsers, user]);
+        if(onlyOne) {
+            if(selectedUsers === user.username) {
+
+            } else {
+                setSelectedUsers(user.username);
+            }
         } else {
-            setSelectedUsers(selectedUsers.filter(u => u.id !== user.id));
+            if (!selectedUsers.includes(user.id)) {
+                setSelectedUsers([...selectedUsers, user.id]);
+            } else {
+                setSelectedUsers(selectedUsers.filter(id => id !== user.id));
+            }   
         }
-        console.log();
     };
     return (
         <div className='w-100'>
@@ -41,5 +55,9 @@ const AddUserToProject = ({ selectedUsers, setSelectedUsers, user }) => {
 
     )
 }
+
+AddUserToProject.propTypes = {
+    onlyOne: PropTypes.bool
+};
 
 export default AddUserToProject

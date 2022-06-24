@@ -28,7 +28,6 @@ const App = () => {
 			await fetchLoggedInUser();
 			await getObjects();
 		};
-
 		execute();
 	}, [])
 
@@ -70,12 +69,12 @@ const App = () => {
 			<NavbarComp />
 			<main id="main" className='bg-dashboard'>
 				<Routes>
-					<Route path="/" element={<Dashboard projects={projects} issues={issues} logged_in_user={logged_in_user} />} />
+					<Route path="/" element={<Dashboard projects={projects} setProjects={setProjects} issues={issues} logged_in_user={logged_in_user} />} />
 
 					<Route path="/sidebar" element={<SidebarProjectDetail />} />
 					<Route path="/project/:projectid" element={<ProjectDetail fetchProject={fetchProject}/>} />
 					<Route path="/project/:projectid/issues" element={<IssuesListProject/>} />
-					<Route path="/project/:projectid/issues/add" element={<IssueAdd fetchProject={fetchProject} />} />
+					<Route path="/project/:projectid/issues/add" element={<IssueAdd fetchProject={fetchProject} logged_in_user={logged_in_user} />} />
 					<Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} />
 
 					<Route path="/login" element={<Login />} />

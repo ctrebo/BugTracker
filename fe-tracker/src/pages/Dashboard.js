@@ -4,7 +4,7 @@ import Project from "../components/Project";
 import Issue from "../components/Issue";
 import AddProjectForm from "../components/AddProjectForm";
 
-const Dashboard = ({ projects, issues, logged_in_user }) => {
+const Dashboard = ({ projects, issues, logged_in_user, setProjects }) => {
     // Modal states and functions
     const [showAddProject, setShowAddProject] = useState(false);
     const handleCloseAddProject = () => setShowAddProject(false);
@@ -17,6 +17,7 @@ const Dashboard = ({ projects, issues, logged_in_user }) => {
         if (localStorage.getItem('token') === null) {
             window.location.replace('http://localhost:3000/login');
         }
+            
     }, []);
     const issues_by_assigned = issues.filter(issue => issue.assigned_to.username === logged_in_user.username);
     const issues_by_creator = issues.filter(issue => issue.creator.username === logged_in_user.username);
@@ -33,7 +34,7 @@ const Dashboard = ({ projects, issues, logged_in_user }) => {
                             <Modal.Header closeButton>
                                 <Modal.Title>Create new Project</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body><AddProjectForm logged_in_user={logged_in_user}/></Modal.Body>
+                            <Modal.Body><AddProjectForm logged_in_user={logged_in_user} handleCloseAddProject={handleCloseAddProject} setProjects={setProjects} projects={projects}/></Modal.Body>
                         </Modal>
                         <div className="overflow-section border-sections">
                             <header></header>

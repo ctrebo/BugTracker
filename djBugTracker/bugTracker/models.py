@@ -30,7 +30,7 @@ class Project(models.Model):
     """
     name         = models.CharField(max_length=20)
     # Like Marketing, Website, Support
-    field        = models.CharField(max_length=10)
+    field        = models.CharField(max_length=7, unique=True)
     created_at   = models.DateTimeField(auto_now_add=True)
     # The one who created the Project
     creator      = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name="projects_as_creator")
@@ -56,6 +56,7 @@ class Issue(models.Model):
     # Use 'user.my_issues' to get all issues a user has created
     creator     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name="my_issues")
     description = models.TextField(max_length=500, null=True, blank=True)
+    created_at   = models.DateTimeField(auto_now_add=True)
     
     """
     - Use 'blank=True' and 'null=True' because issue shouldnt be deleted if developpers doesnt exist anymore
@@ -84,7 +85,7 @@ class Issue(models.Model):
 
     status   = models.CharField(max_length=1, choices=ISSUE_STATUS, blank=True, default="o")
     priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES, blank=True)
-    #due_date = models.DateTimeField()
+    due      = models.DateTimeField()
     issue_type = models.CharField(max_length=1, choices=TYPE_COICES, blank=True)
 
     class Meta:

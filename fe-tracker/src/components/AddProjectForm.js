@@ -4,7 +4,7 @@ import axios from "axios";
 import AddUserToProject from "./AddUserToProject";
 
 
-const AddProjectForm = ({ logged_in_user }) => {
+const AddProjectForm = ({ logged_in_user, handleCloseAddProject, setProjects, projects }) => {
 	const [users, setUsers] = useState([]);
 	const [name, setName] = useState('');
 	const [field, setField] = useState('');
@@ -22,7 +22,7 @@ const AddProjectForm = ({ logged_in_user }) => {
 		setUsers(res.data);
 	};
 	useState(() => {
-		fetchUsers();
+		fetchUsers();		
 	}, []);
 
 	const filterUsers = async (e) => {
@@ -55,19 +55,20 @@ const AddProjectForm = ({ logged_in_user }) => {
 		const project = {
 			name : name,
 			field : field,
-			team_members: selectedUsers,
-			creator : logged_in_user,
+			team_members: (selectedUsers.length > 0 ? selectedUsers.join(" "): ""),
+			creator : logged_in_user.username,
 			picture : picture,
 		}
-
-		console.log(project);
 
 		const res = await axios.post("/tracker/create-project/" ,project, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
 		});
-		console.log(res.data);
+
+		setProjects([res.data, ...projects]);
+
+		handleCloseAddProject();
 	}
 
 	return (
@@ -81,7 +82,7 @@ const AddProjectForm = ({ logged_in_user }) => {
 			<Form.Group className="mb-3" >
 				<Form.Control type="text" value={filterValue || ""} placeholder="Add project members" onChange={filterUsers} />
 				<div className="user-filter">
-					{users.map(u => <AddUserToProject key={u.id} user={u} selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} />)}
+					{users.map(u => <AddUserToProject key={u.id} user={u} selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} onlyOne={false} />)}
 				</div>
 			</Form.Group>
 			<Form.Group className="mt-3">
