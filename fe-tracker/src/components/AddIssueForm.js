@@ -66,7 +66,7 @@ const AddIssueForm = ({project}) => {
 			}
 		});
 
-		navigate(`/project/${project.id}`);
+		navigate(`/project/${project.id}/issues`);
 
 		resetForm();
 	}
