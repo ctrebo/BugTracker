@@ -14,6 +14,7 @@ from django.contrib.auth import get_user_model
 user_model = get_user_model()
 # Create your views here.
 
+
 class DashbordView(APIView):
     permission_classes = [IsAuthenticated, ]
     parser_classes = (MultiPartParser, FormParser)
@@ -26,6 +27,7 @@ class DashbordView(APIView):
         context = {'projects': project_serializer.data, 'issues': issue_serializer.data, }
 
         return Response(context)
+
 
 class ProjectCreateView(generics.CreateAPIView):
     serializer_class = AddProjectSerializer
