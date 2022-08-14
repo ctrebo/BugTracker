@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
 
+
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -15,12 +16,10 @@ import Profilpage from './pages/Profilpage';
 import SidebarProjectDetail from './components/SidebarProjectDetail';
 import NavbarComp from './components/NavbarComp';
 
-
 const App = () => {
 	const [projects, setProjects] = useState([]);
 	const [issues, setIssues] = useState([]);
 	const [logged_in_user, setLoggedInUser] = useState({});
-
 
 
 	useEffect(() => {
@@ -62,7 +61,6 @@ const App = () => {
 
 		return res.data;
 	};
-
 
 	return (
 		<Router>

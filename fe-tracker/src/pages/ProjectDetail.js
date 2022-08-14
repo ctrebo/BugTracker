@@ -13,7 +13,9 @@ const ProjectDetail = ({fetchProject}) => {
 			const fetched_project = await fetchProject(projectid);
 			setProject(fetched_project);
 		};
-
+		if (localStorage.getItem('token') === null) {
+            window.location.replace('http://localhost:3000/login');
+        }
 		getProject();
 	}, []);
 

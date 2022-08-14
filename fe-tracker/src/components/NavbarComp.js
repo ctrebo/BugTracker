@@ -40,7 +40,7 @@ const NavbarComp = () => {
             <Link className="mynav-link px-0 px-md-2" to="/profil-page">
               Profilpage
             </Link>
-            <span className="mynav-link px-0 px-md-2" onClick={handleLogout}>
+            <span className="mynav-link px-0 px-md-2 cursor-pointer" onClick={handleLogout}>
               Logout
             </span>
           </Fragment>
