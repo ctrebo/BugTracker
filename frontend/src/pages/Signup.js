@@ -1,62 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 
 const Signup = () => {
+
+    const {signupUser, user} = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
     const [errors, setErrors] = useState(false);
-    const [loading, setLoading] = useState(true);
-
+    
     useEffect(() => {
-        if (localStorage.getItem('token') !== null) {
-            window.location.replace('http://localhost:3000/dashboard');
-        } else {
-            setLoading(false);
+        if (user) {
+            navigate("/");
         }
     }, []);
 
     const onSubmit = e => {
-        e.preventDefault();
-
         const user = {
             username: username,
             email: email,
             password1: password1,
-            password2: password2
-        };
+            password2: password2,
 
-        fetch('tracker/auth/register/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.key) {
-                    localStorage.clear();
-                    localStorage.setItem('token', data.key);
-                    window.location.replace('http://localhost:3000/');
-                } else {
-                    setUsername('');
-                    setEmail('');
-                    setPassword1('');
-                    setPassword2('');
-                    localStorage.clear();
-                    setErrors(true);
-                }
-            });
-    };
+        };
+        signupUser(e, user);
+    }
 
     return (
         <Container className="pt-4">
             <Row>
                 <Col xs={12} md={8} className='m-auto'>
-                    {loading === false && <h1>Signup</h1>}
+                    <h1>Signup</h1>
                     {errors === true && <h2>Cannot signup with provided credentials</h2>}
                     <Form onSubmit={onSubmit} className="mt-5">
                         <Form.Group className="mb-3" controlId="formBasicUsername">
@@ -64,6 +46,12 @@ const Signup = () => {
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Control type="email" placeholder="Enter email adress" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicFirstName">
+                            <Form.Control type="text" placeholder="Enter first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicLastName">
+                            <Form.Control type="text" placeholder="Enter last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Control type="password" placeholder="Enter Password" value={password1} onChange={(e) => setPassword1(e.target.value)} required />

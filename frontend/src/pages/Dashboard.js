@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Row, Col, Container, Modal } from "react-bootstrap"
 import Project from "../components/Project";
 import Issue from "../components/Issue";
 import AddProjectForm from "../components/AddProjectForm";
+import AuthContext from './../context/AuthContext'
 
-const Dashboard = ({ projects, issues, logged_in_user, setProjects }) => {
+const Dashboard = ({ projects, issues, setProjects }) => {
     // Modal states and functions
+    const {user} = useContext(AuthContext);
     const [showAddProject, setShowAddProject] = useState(false);
     const handleCloseAddProject = () => setShowAddProject(false);
     const handleShowAddProject = () => setShowAddProject(true);
@@ -13,14 +15,8 @@ const Dashboard = ({ projects, issues, logged_in_user, setProjects }) => {
 
     const [filterAssignedToMe, setFilterAssignedToMe] = useState(true);
 
-    useEffect(() => {
-        if (localStorage.getItem('token') === null) {
-            window.location.replace('http://localhost:3000/login');
-        }
-            
-    }, []);
-    const issues_by_assigned = issues.filter(issue => issue.assigned_to.username === logged_in_user.username);
-    const issues_by_creator = issues.filter(issue => issue.creator.username === logged_in_user.username);
+    const issues_by_assigned = issues.filter(issue => issue.assigned_to.username === user.username);
+    const issues_by_creator = issues.filter(issue => issue.creator.username === user.username);
 
     const classes_filter = "text-center mb-0 py-1 px-2 px-md-3 d-inline-block cursor-pointer"
 
@@ -34,7 +30,7 @@ const Dashboard = ({ projects, issues, logged_in_user, setProjects }) => {
                             <Modal.Header closeButton>
                                 <Modal.Title>Create new Project</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body><AddProjectForm logged_in_user={logged_in_user} handleCloseAddProject={handleCloseAddProject} setProjects={setProjects} projects={projects}/></Modal.Body>
+                            <Modal.Body><AddProjectForm handleCloseAddProject={handleCloseAddProject} setProjects={setProjects} projects={projects}/></Modal.Body>
                         </Modal>
                         <div className="overflow-section border-sections">
                             <header></header>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Container } from 'react-bootstrap';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
@@ -27,7 +27,7 @@ const SidebarProjectDetail = ({project_id}) => {
 	return (
 		<>
 			{showLeftSidebar ? (
-				<SideNav onSelect={(selected) => { }} className="" >
+				<SideNav className="" >
 					<SideNav.Toggle className="" />
 					<SideNav.Nav>
 						<NavItem eventKey="home" onClick={()=>navigate(`/project/${project_id}`)}>

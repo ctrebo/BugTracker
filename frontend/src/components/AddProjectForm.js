@@ -1,10 +1,14 @@
-import { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Form, Button } from "react-bootstrap"
 import axios from "axios";
 import AddUserToProject from "./AddUserToProject";
+import AuthContext from "../context/AuthContext";
 
 
-const AddProjectForm = ({ logged_in_user, handleCloseAddProject, setProjects, projects }) => {
+const AddProjectForm = ({handleCloseAddProject, setProjects, projects }) => {
+    
+    const {user} = useContext(AuthContext);
+
 	const [users, setUsers] = useState([]);
 	const [name, setName] = useState('');
 	const [field, setField] = useState('');
@@ -21,7 +25,8 @@ const AddProjectForm = ({ logged_in_user, handleCloseAddProject, setProjects, pr
 		});
 		setUsers(res.data);
 	};
-	useState(() => {
+
+	useEffect(() => {
 		fetchUsers();		
 	}, []);
 
@@ -56,7 +61,7 @@ const AddProjectForm = ({ logged_in_user, handleCloseAddProject, setProjects, pr
 			name : name,
 			field : field,
 			team_members: (selectedUsers.length > 0 ? selectedUsers.join(" "): ""),
-			creator : logged_in_user.username,
+			creator : user.username,
 			picture : picture,
 		}
 
