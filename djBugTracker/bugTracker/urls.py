@@ -9,8 +9,6 @@ urlpatterns = [
     path("create-issue/", views.IssueCreateView.as_view(), name="create-issue"),
     re_path(r'^userfilter/(?P<slug>[\w|\W]+)/', views.UserFilter.as_view()),
     path("users/", views.UsersView.as_view(), name="users"),
-    path('auth/', include('rest_auth.urls')),
-    path('auth/register/', include('rest_auth.registration.urls'))
 ]
 
 
