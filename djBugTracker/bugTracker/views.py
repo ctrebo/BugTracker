@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import api_view, permission_classes
 
 from .serializers import IssueSerializer, UserSerializer, ProjectSerializer, AddProjectSerializer, AddIssueSerializer
 from .models import Issue, Project
@@ -13,6 +14,15 @@ from django.contrib.auth import get_user_model
 
 user_model = get_user_model()
 # Create your views here.
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getProjectsByUser(request):
+    print(f"User {request.user}")
+    serializer = ProjectSerializer(Project.objects.filter(creator=request.user), many=True)
+    print(f"Ser: {serializer.data}")
+    return Response(serializer.data)
+
 
 
 class DashbordView(APIView):

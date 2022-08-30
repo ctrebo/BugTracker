@@ -6,9 +6,6 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 export default AuthContext;
 
-
-
-
 export const AuthProvider = ({children}) => {
     
     const [authTokens, setAuthTokens] = useState(()=>localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null);
@@ -42,7 +39,8 @@ export const AuthProvider = ({children}) => {
     const signupUser = async (e, user) => {
         e.preventDefault();
         const res = await axios.post("/api/register/", user); 
-        if (res.status === 200) {
+        console.log("Response", res)
+        if (res.status === 200 || res.status === 201) {
             loginUser(null, user.username, user.password);
         } else {
             alert("Ooops somethign went wrong");

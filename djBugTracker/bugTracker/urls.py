@@ -1,4 +1,5 @@
 from django.urls import path, re_path, include
+from django.conf.urls import url
 
 from . import views
 
@@ -9,6 +10,7 @@ urlpatterns = [
     path("create-issue/", views.IssueCreateView.as_view(), name="create-issue"),
     re_path(r'^userfilter/(?P<slug>[\w|\W]+)/', views.UserFilter.as_view()),
     path("users/", views.UsersView.as_view(), name="users"),
+    path("get-projects-by-user/", views.getProjectsByUser, name="get-projects-by-user"),
 ]
 
 

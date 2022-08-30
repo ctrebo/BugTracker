@@ -1,17 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Container, Modal } from "react-bootstrap"
 import Project from "../components/Project";
 import Issue from "../components/Issue";
 import AddProjectForm from "../components/AddProjectForm";
 import AuthContext from './../context/AuthContext'
+import ProjectContext from './../context/ProjectContext'
 
-const Dashboard = ({ projects, issues, setProjects }) => {
+const Dashboard = ({ issues }) => {
     // Modal states and functions
     const {user} = useContext(AuthContext);
+    const {projects} = useContext(ProjectContext);
     const [showAddProject, setShowAddProject] = useState(false);
     const handleCloseAddProject = () => setShowAddProject(false);
     const handleShowAddProject = () => setShowAddProject(true);
-
 
     const [filterAssignedToMe, setFilterAssignedToMe] = useState(true);
 
@@ -30,12 +31,12 @@ const Dashboard = ({ projects, issues, setProjects }) => {
                             <Modal.Header closeButton>
                                 <Modal.Title>Create new Project</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body><AddProjectForm handleCloseAddProject={handleCloseAddProject} setProjects={setProjects} projects={projects}/></Modal.Body>
+                            <Modal.Body><AddProjectForm handleCloseAddProject={handleCloseAddProject} /></Modal.Body>
                         </Modal>
                         <div className="overflow-section border-sections">
                             <header></header>
                             <div>
-                                {projects.map(project => <Project key={project.id} project={project} />)}
+                                {projects ? projects.map(project => <Project key={project.id} project={project} />) : ''}
                             </div>
                         </div>
                     </div>
@@ -68,7 +69,7 @@ const Dashboard = ({ projects, issues, setProjects }) => {
                         <div className="overflow-section border-sections">
                             <header></header>
                             <div>
-                                {projects.map(project => <Project key={project.id} project={project} />)}
+                                {projects ? projects.map(project => <Project key={project.id} project={project} />) : ''}
                             </div>
                         </div>
                     </div>

@@ -15,11 +15,10 @@ import Profilpage from './pages/Profilpage';
 import SidebarProjectDetail from './components/SidebarProjectDetail';
 import NavbarComp from './components/NavbarComp';
 import { AuthProvider } from './context/AuthContext';
+import { ProjectProvider } from './context/ProjectContext';
 
 const App = () => {
-	const [projects, setProjects] = useState([]);
 	const [issues, setIssues] = useState([]);
-
 
 	useEffect(() => {
 		const execute = async () => {
@@ -32,10 +31,9 @@ const App = () => {
 		const res = await axios.get("/tracker/dashboard/", {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Token ${localStorage.getItem('token')}`
+				Authorization: ``
 			}
 		});
-		setProjects(res.data['projects']);
 		setIssues(res.data["issues"]);
 	};
 
@@ -63,22 +61,24 @@ const App = () => {
 	return (
 		<Router>
             <AuthProvider>
-                <NavbarComp />
-                <main id="main" className='bg-dashboard'>
-                    <Routes>
-                        <Route element={<PrivateRoutes />}>
+                <ProjectProvider>
+                    <NavbarComp />
+                    <main id="main" className='bg-dashboard'>
+                        <Routes>
+                            <Route element={<PrivateRoutes />}>
 
-                            <Route path="/" element={<Dashboard projects={projects} setProjects={setProjects} issues={issues} />} />
-                           {/*  <Route path="/project/:projectid/issues" element={<IssuesListProject/>} /> 
-                             <Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} />
-                             <Route path="/profil-page" element={<Profilpage />} /> */}
-                        </Route>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<Signup />} />
+                                <Route path="/" element={<Dashboard issues={issues} />} />
+                               {/*  <Route path="/project/:projectid/issues" element={<IssuesListProject/>} /> 
+                                 <Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} />
+                                 <Route path="/profil-page" element={<Profilpage />} /> */}
+                            </Route>
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/signup" element={<Signup />} />
 
-                         {/* <Route path="/sidebar" element={<SidebarProjectDetail />} /> */}
-                    </Routes>
-                </main>
+                             {/* <Route path="/sidebar" element={<SidebarProjectDetail />} /> */}
+                        </Routes>
+                    </main>
+                </ProjectProvider>
             </AuthProvider>
 		</Router>
 	);
