@@ -33,7 +33,7 @@ const Signup = () => {
             last_name: lastName,
 
         };
-        signupUser(e, user);
+        signupUser(e, user, setErrors);
     }
 
     return (
@@ -41,7 +41,6 @@ const Signup = () => {
             <Row>
                 <Col xs={12} md={8} className='m-auto'>
                     <h1>Signup</h1>
-                    {errors === true && <h2>Cannot signup with provided credentials</h2>}
                     <Form onSubmit={onSubmit} className="mt-5">
                         <Form.Group className="mb-3" controlId="formBasicUsername">
                             <Form.Control type="text" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)} required />
@@ -61,6 +60,7 @@ const Signup = () => {
                         <Form.Group className="mb-3" controlId="formBasicPassword2">
                             <Form.Control type="password" placeholder="Confirm Password" value={password2} onChange={(e) => setPassword2(e.target.value)} required />
                         </Form.Group>
+                        {errors === true && <p className="text-danger">Cannot login with provided credentials</p>}
                         <Button variant="primary" type="submit" className="mt-3">
                             Submit
                         </Button>

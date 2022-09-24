@@ -5,19 +5,42 @@ import Issue from "../components/Issue";
 import AddProjectForm from "../components/AddProjectForm";
 import AuthContext from './../context/AuthContext'
 import ProjectContext from './../context/ProjectContext'
+import axios from "axios";
+import useAxios from "../utils/useAxios";
 
-const Dashboard = ({ issues }) => {
+
+const Dashboard = () => {
     // Modal states and functions
+	const [issues, setIssues] = useState([]);
+    const [showAddProject, setShowAddProject] = useState(false);
+    const [filterAssignedToMe, setFilterAssignedToMe] = useState(true);
+
+
+    const api = useAxios();
     const {user} = useContext(AuthContext);
     const {projects} = useContext(ProjectContext);
-    const [showAddProject, setShowAddProject] = useState(false);
     const handleCloseAddProject = () => setShowAddProject(false);
     const handleShowAddProject = () => setShowAddProject(true);
 
-    const [filterAssignedToMe, setFilterAssignedToMe] = useState(true);
+	useEffect(() => {
+		const execute = async () => {
+			await getObjects();
+		};
+		execute();
+	}, [])
+
 
     const issues_by_assigned = issues.filter(issue => issue.assigned_to.username === user.username);
     const issues_by_creator = issues.filter(issue => issue.creator.username === user.username);
+
+	const getObjects = async () => {
+		const res = await api.get("/tracker/dashboard/", {
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		});
+		setIssues(res.data["issues"]);
+	};
 
     const classes_filter = "text-center mb-0 py-1 px-2 px-md-3 d-inline-block cursor-pointer"
 

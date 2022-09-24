@@ -1,10 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import axios from 'axios';
 import PrivateRoutes from './utils/PrivateRoutes';
-
 
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
@@ -18,24 +15,8 @@ import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
 
 const App = () => {
-	const [issues, setIssues] = useState([]);
 
-	useEffect(() => {
-		const execute = async () => {
-			await getObjects();
-		};
-		execute();
-	}, [])
 
-	const getObjects = async () => {
-		const res = await axios.get("/tracker/dashboard/", {
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: ``
-			}
-		});
-		setIssues(res.data["issues"]);
-	};
 
 	// const fetchLoggedInUser = async () => {
 	// 	const res = await axios.get('/tracker/auth/user/', {
@@ -67,7 +48,7 @@ const App = () => {
                         <Routes>
                             <Route element={<PrivateRoutes />}>
 
-                                <Route path="/" element={<Dashboard issues={issues} />} />
+                                <Route path="/" element={<Dashboard />} />
                                {/*  <Route path="/project/:projectid/issues" element={<IssuesListProject/>} /> 
                                  <Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} />
                                  <Route path="/profil-page" element={<Profilpage />} /> */}

@@ -14,14 +14,23 @@ export const AuthProvider = ({children}) => {
 
     const navigate = useNavigate();
 
-    const loginUser = async (e, username, password) => {
-        if(e) {
+    const loginUser = async (e, username, password, setErrors) => {
+        if (e) { 
             e.preventDefault();
         }
-        const res = await axios.post("http://127.0.0.1:8000/api/token/", {
-            'username':username,
-            'password': password,
-        });
+
+        let res;
+        // If user is not authorized, set response to e.response
+        try {
+            res = await axios.post("/api/token/", 
+                {
+                    'username':username,
+                    'password': password,
+                }
+            );
+        } catch (e) {
+            res=e.response
+        }
 
         const data = res.data;
 
@@ -31,19 +40,24 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem('authTokens', JSON.stringify(data));
             navigate('/');
         } else {
-            alert("Something went wrong");
+            setErrors(true);
         }
-         
     };
 
-    const signupUser = async (e, user) => {
+    const signupUser = async (e, user, setErrors) => {
         e.preventDefault();
-        const res = await axios.post("/api/register/", user); 
-        console.log("Response", res)
+
+        let res;
+        try {
+            res = await axios.post("/api/register/", user); 
+        } catch(e) {
+            res = e.response;
+        }
+
         if (res.status === 200 || res.status === 201) {
-            loginUser(null, user.username, user.password);
+            loginUser(null, user.username, user.password, setErrors);
         } else {
-            alert("Ooops somethign went wrong");
+            setErrors(true);
         }
     }
     
