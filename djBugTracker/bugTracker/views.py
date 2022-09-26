@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
+from django.db.models import Q
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -18,9 +19,13 @@ user_model = get_user_model()
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getProjectsByUser(request):
-    print(f"User {request.user}")
-    serializer = ProjectSerializer(Project.objects.filter(creator=request.user), many=True)
-    print(f"Ser: {serializer.data}")
+    project_query = Project.objects.filter(Q(creator=request.user) | Q(team_members__id=request.user.id)).distinct()
+
+    serializer = ProjectSerializer(project_query, many=True)
+    
+    print(f"{project_query=}")
+    
+    # return Response(serializer.data)
     return Response(serializer.data)
 
 
@@ -32,9 +37,17 @@ class DashbordView(APIView):
     def get(self, request):
         project_serializer = ProjectSerializer(Project.objects.filter(creator=request.user).order_by("-created_at"), many=True)
 
-        issue_serializer = IssueSerializer(Issue.objects.filter(creator=request.user), many=True)
+        # Issues created or assigned by user
+        issues_query = Issue.objects.filter(Q(assigned_to=request.user) | Q(creator=request.user))
 
-        context = {'projects': project_serializer.data, 'issues': issue_serializer.data, }
+        issue_serializer_created_by_user = IssueSerializer(issues_query.filter(creator=request.user), many=True)
+        issue_serializer_assigned_to_user = IssueSerializer(issues_query.filter(assigned_to=request.user), many=True)
+
+        context = {
+            'projects': project_serializer.data,
+            'issues_created_by_user': issue_serializer_created_by_user.data,
+            'issues_assigned_to_user': issue_serializer_assigned_to_user.data
+        }
 
         return Response(context)
 

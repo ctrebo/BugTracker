@@ -13,31 +13,9 @@ import SidebarProjectDetail from './components/SidebarProjectDetail';
 import NavbarComp from './components/NavbarComp';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
+import useAxios from './utils/useAxios';
 
 const App = () => {
-
-
-
-	// const fetchLoggedInUser = async () => {
-	// 	const res = await axios.get('/tracker/auth/user/', {
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 			Authorization: `Token ${localStorage.getItem('token')}`
-	// 		}
-	// 	});
-	// 	setLoggedInUser(res.data);
-	// };
-
-	const fetchProject = async (id) => {
-		const res = await axios.get(`/tracker/project/${id}/`, {
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${localStorage.getItem('token')}`
-			}
-		});
-
-		return res.data;
-	};
 
 	return (
 		<Router>

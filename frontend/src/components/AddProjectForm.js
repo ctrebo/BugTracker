@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Form, Button } from "react-bootstrap"
-import axios from "axios";
 import AddUserToProject from "./AddUserToProject";
 import AuthContext from "../context/AuthContext";
+import useAxios from "../utils/useAxios";
+import ProjectContext from './../context/ProjectContext'
 
 
-const AddProjectForm = ({handleCloseAddProject, setProjects, projects }) => {
+const AddProjectForm = ({handleCloseAddProject}) => {
     
     const {user} = useContext(AuthContext);
 
@@ -16,11 +17,13 @@ const AddProjectForm = ({handleCloseAddProject, setProjects, projects }) => {
 	const [filterValue, setFilterValue] = useState('');
 	const [selectedUsers, setSelectedUsers] = useState([]);
 
+    const {projects, setProjects} = useContext(ProjectContext);
+    const api = useAxios();
+
 	const fetchUsers = async () => {
-		const res = await axios.get("tracker/users/", {
+		const res = await api.get("tracker/users/", {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Token ${localStorage.getItem('token')}`
 			}
 		});
 		setUsers(res.data);
@@ -35,12 +38,7 @@ const AddProjectForm = ({handleCloseAddProject, setProjects, projects }) => {
 		if (e.target.value === '') {
 			fetchUsers();
 		} else {
-			const res = await axios.get(`tracker/userfilter/${e.target.value}/`, {
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Token ${localStorage.getItem('token')}`
-				}
-			});
+			const res = await api.get(`tracker/userfilter/${e.target.value}/`);
 			setUsers(res.data);
 		}
 	};
@@ -65,7 +63,7 @@ const AddProjectForm = ({handleCloseAddProject, setProjects, projects }) => {
 			picture : picture,
 		}
 
-		const res = await axios.post("/tracker/create-project/" ,project, {
+		const res = await api.post("/tracker/create-project/" ,project, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

@@ -5,7 +5,11 @@ import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 
 const useAxios = () => {
-    const {authTokens, setUser, setAuthTokens} = useContext(AuthContext);
+    const {authTokens, setUser, setAuthTokens, user} = useContext(AuthContext);
+
+    if (!user) {
+        return axios;
+    }
 
     const axiosInstance = axios.create({
         baseURL:'',
@@ -23,7 +27,7 @@ const useAxios = () => {
     
         const response = await axios.post('/api/token/refresh/', {
             refresh: authTokens.refresh
-          });
+        });
     
         localStorage.setItem('authTokens', JSON.stringify(response.data))
         

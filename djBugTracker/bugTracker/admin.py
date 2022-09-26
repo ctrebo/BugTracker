@@ -44,7 +44,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Issue)
 class IssueAdmin(admin.ModelAdmin):
-    list_display = ("name", "project", "id")
+    list_display = ("name", "project","creator","assigned_to", "id")
 
 
 

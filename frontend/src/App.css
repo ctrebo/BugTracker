@@ -1,139 +1,165 @@
+.modal.fade .modal-dialog {
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    transform: scale(0.1);
+    top: 300px;
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.modal.fade.show .modal-dialog {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform: translate3d(0, -300px, 0);
+    transform: translate3d(0, -300px, 0);
+    opacity: 1;
+}
 
 #root {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 56px;
-  bottom: 0;
-
-  /* Variable declarations */
-  --red-sidebar: #db3d44;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 56px;
+    bottom: 0;
+    
+    /* Variable declarations */
+    --red-sidebar: #db3d44;
 }
 
 #main {
-  min-height: 100%;
+    min-height: 100%;
 }
 
 nav {
-  box-shadow: 0 4px 2px -2px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.2);
 }
 
 .header {
-  background-color: #fafafa;
-  border-bottom: 1px solid #4040405b;
+    background-color: #fafafa;
+    border-bottom: 1px solid #4040405b;
 }
 
 .menu {
-  border-bottom: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 
 .border-sections {
-  border: 1px solid rgb(203, 202, 202);
+    border: 1px solid rgb(203, 202, 202);
 }
 
 .bg-turquoise {
-  background-color: #00b1b4d3;
+    background-color: #00b1b4d3;
 }
 
-
 .bg-yellow {
-  background-color: #FFFFCC;
+    background-color: #FFFFCC;
 }
 
 .sidebar-expanded {
-  min-width: 100% !important;
+    min-width: 100% !important;
 }
 
 .user-filter {
   height: 186px;
-  overflow-y: scroll;
-  border: 1px solid #4040405b;
+    overflow-y: scroll;
+    border: 1px solid #4040405b;
 }
 
 .user-filter::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .text-issue {
-  line-height: 0.95rem;
-  font-size: 0.95rem;
+    line-height: 0.95rem;
+    font-size: 0.95rem;
 }
 
 article small a:hover {
-  text-decoration: underline !important; 
+    text-decoration: underline !important; 
 }
 
 .overflow-section {
-  overflow-y: scroll;
-  height: 230px;
+    overflow-y: scroll;
+    height: 230px;
 }
 
 .overflow-section::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .cursor-pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .img-project-wrap {
-  height: 44px;
-  width: 44px;
+    height: 44px;
+    width: 44px;
 }
 
 .bg-project {
-  background-color: #fff;
-  color: #000;
-  transition: all .15s linear;
+    background-color: #fff;
+    color: #000;
+    transition: all .15s linear;
 }
 
 .bg-project:hover {
-  background-color: #000;
-  color: #fff;
+    background-color: #000;
+    color: #fff;
 }
 
 .bg-dashboard {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 .mynav-link {
-
-  color: rgba(255, 255, 255, .55);
-  text-decoration: none;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    color: rgba(255, 255, 255, .55);
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 
 .sidebar-phone {
-  background-color: var(--red-sidebar);
+    background-color: var(--red-sidebar);
 }
 
 .yellow-shade {
-  background-color: #fffde0;
+    background-color: #fffde0;
 }
 
 .border-green {
-  border: 1px solid green;
+    border: 1px solid green;
 }
 
 .mynav-link:hover {
-  color: rgba(255, 255, 255, .75);
+    color: rgba(255, 255, 255, .75);
 }
 
 .mynav-linkbottom {
-  display: inline-block;
-  color: rgba(255, 255, 255);
-  text-decoration: none;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    display: inline-block;
+    color: rgba(255, 255, 255);
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+
 }
 
 
 
 .mynav-linkbottom:hover {
-  color: rgba(255, 255, 255, .75);
+    color: rgba(255, 255, 255, .75);
 }
 
 .sidenav---sidenav---_2tBP {
-  position: fixed !important;
-  top: 56px !important;
+    position: fixed !important;
+    top: 56px !important;
 }
 
+    .modal-content {
+        height: auto;
+        min-height: 100%;
+        border-radius: 15px;
+        border: none; 
+    }

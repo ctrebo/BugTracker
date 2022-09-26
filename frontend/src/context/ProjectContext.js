@@ -9,13 +9,15 @@ export const ProjectProvider = ({children}) => {
     const api = useAxios();
 
     const fetchProjects = async() => {
-        const res = await api.get("/tracker/get-projects-by-user/", {
-			headers: {
-				'Content-Type': 'application/json',
-			}
-		});
+        const res = await api.get("/tracker/get-projects-by-user/");
         setProjects(res.data);
     };
+
+	const fetchProject = async (id) => {
+		const res = await api.get(`/tracker/project/${id}/`);
+
+		return res.data;
+	};
 
 	useEffect(() => {
         fetchProjects();
@@ -24,6 +26,7 @@ export const ProjectProvider = ({children}) => {
     const contextData = {
         projects: projects,
         setProjects: setProjects,
+        fetchProject: fetchProject,
     }
 
     return (
