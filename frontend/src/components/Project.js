@@ -13,6 +13,10 @@ const Project = ({ project }) => {
 
     const navigate = useNavigate();
 
+    const deleteProject = () => {
+        
+    };
+
     return (
         <>
             <section onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)}>
@@ -28,7 +32,7 @@ const Project = ({ project }) => {
                                 <i className="fa-solid fa-trash-can float-end text-danger mt-3 cursor-pointer" onClick={() => setModalShow(true)}></i>
                             ) : ''    
                             }
-                            <DeleteModal show={modalShow} onHide={() => setModalShow(false)} />
+                            <DeleteModal show={modalShow} onHide={() => setModalShow(false)}  object_name="Project" deleteObject={deleteProject} />
                             <div>
                                 <header>
                                     <Link to={`project/${project.id}`} className={`text-decoration-none ${onHover ? 'text-white' : 'text-dark'}`}>{project.name}</Link>

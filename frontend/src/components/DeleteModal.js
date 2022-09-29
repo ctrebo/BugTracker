@@ -1,25 +1,26 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 
-const DeleteModal = (props) => {
+const DeleteModal = ({show, onHide, objectName, deleteObject}) => {
     return (
-        <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-        <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-                Modal heading
-            </Modal.Title>
-        </Modal.Header>
+        <Modal show={show} onHide={onHide} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Body>
-            <h4>Centered Modal</h4>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-              consectetur ac, vestibulum at eros.
-            </p>
+            <Container>
+                <Row>
+                    <Col xs={12} className="m-auto">
+                        <h5 class="modal-title text-center mb-2" id="exampleModalLongTitle">Delete this {objectName}?</h5>
+                        <p class="text-muted">You won't be able to restore this {objectName} if you delete it!</p>
+                    </Col>
+                </Row>
+            </Container>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => props.setModalShow(false)}>Close</Button>
+                <Button onClick={onHide} variant="warning">Abort</Button>
+                <Button onClick={deleteObject} variant="danger">Delete</Button>
           </Modal.Footer>
         </Modal>
     );
