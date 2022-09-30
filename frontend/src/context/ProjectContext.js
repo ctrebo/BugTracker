@@ -19,6 +19,15 @@ export const ProjectProvider = ({children}) => {
 		return res.data;
 	};
 
+    const deleteProject = async id => {
+        const res = await api.delete(`/tracker/project/${id}/`);
+        if (res.status === 204) {
+            fetchProjects();
+        } else {
+            alert("Something went wrong!");
+        }
+    };
+
 	useEffect(() => {
         fetchProjects();
 	}, []);
@@ -27,6 +36,7 @@ export const ProjectProvider = ({children}) => {
         projects: projects,
         setProjects: setProjects,
         fetchProject: fetchProject,
+        deleteProject: deleteProject,
     }
 
     return (

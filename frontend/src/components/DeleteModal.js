@@ -12,15 +12,15 @@ const DeleteModal = ({show, onHide, objectName, deleteObject}) => {
             <Container>
                 <Row>
                     <Col xs={12} className="m-auto">
-                        <h5 class="modal-title text-center mb-2" id="exampleModalLongTitle">Delete this {objectName}?</h5>
-                        <p class="text-muted">You won't be able to restore this {objectName} if you delete it!</p>
+                        <h5 className="modal-title text-center mb-2" id="exampleModalLongTitle">Delete this {objectName}?</h5>
+                        <p className="text-muted text-center">You won't be able to restore this {objectName} if you delete it!</p>
                     </Col>
                 </Row>
             </Container>
           </Modal.Body>
           <Modal.Footer>
-                <Button onClick={onHide} variant="warning">Abort</Button>
-                <Button onClick={deleteObject} variant="danger">Delete</Button>
+                <Button onClick={onHide} variant="warning text-white">Abort</Button>
+                <Button onClick={() => { deleteObject(); onHide();}} variant="danger">Delete</Button>
           </Modal.Footer>
         </Modal>
     );

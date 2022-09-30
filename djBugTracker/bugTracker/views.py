@@ -19,7 +19,7 @@ user_model = get_user_model()
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getProjectsByUser(request):
-    project_query = Project.objects.filter(Q(creator=request.user) | Q(team_members__id=request.user.id)).distinct()
+    project_query = Project.objects.filter(Q(creator=request.user) | Q(team_members__id=request.user.id)).distinct().order_by("-created_at")
 
     serializer = ProjectSerializer(project_query, many=True)
     
@@ -35,7 +35,6 @@ class DashbordView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
     def get(self, request):
-        project_serializer = ProjectSerializer(Project.objects.filter(creator=request.user).order_by("-created_at"), many=True)
 
         # Issues created or assigned by user
         issues_query = Issue.objects.filter(Q(assigned_to=request.user) | Q(creator=request.user))
@@ -44,7 +43,6 @@ class DashbordView(APIView):
         issue_serializer_assigned_to_user = IssueSerializer(issues_query.filter(assigned_to=request.user), many=True)
 
         context = {
-            'projects': project_serializer.data,
             'issues_created_by_user': issue_serializer_created_by_user.data,
             'issues_assigned_to_user': issue_serializer_assigned_to_user.data
         }
@@ -61,6 +59,7 @@ class IssueCreateView(generics.CreateAPIView):
     serializer_class = AddIssueSerializer
 
 class ProjectView(APIView):
+    permission_classes = [IsAuthenticated, ]
 
     def get_object(self, pk):
         try:
@@ -72,6 +71,11 @@ class ProjectView(APIView):
         project = self.get_object(pk)
         serializer = ProjectSerializer(project)
         return Response(serializer.data)
+
+    def delete(self, request, pk, format=None):
+        project = self.get_object(pk)
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class UserFilter(generics.ListAPIView):
     serializer_class = UserSerializer

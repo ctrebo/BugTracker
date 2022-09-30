@@ -68,6 +68,7 @@ const AddProjectForm = ({handleCloseAddProject}) => {
                 "Content-Type": "multipart/form-data",
             },
 		});
+        console.log(res.data);
 
 		setProjects([res.data, ...projects]);
 

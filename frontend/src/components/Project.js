@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react"
-import { Row, Col, Button } from "react-bootstrap"
+import { Row, Col } from "react-bootstrap"
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import ProjectContext from "../context/ProjectContext";
 import DeleteModal from "./DeleteModal"
 
 
@@ -10,12 +11,9 @@ const Project = ({ project }) => {
     const {user} = useContext(AuthContext)
 
     const [modalShow, setModalShow] = React.useState(false);
+    const {deleteProject} = useContext(ProjectContext);
 
     const navigate = useNavigate();
-
-    const deleteProject = () => {
-        
-    };
 
     return (
         <>
@@ -28,11 +26,11 @@ const Project = ({ project }) => {
                             </div>
                         </Col>
                         <Col xs={10}>
-                            {user.username === project.creator.username && onHover?(
+                            {(user.username === project.creator.username || user.username === project.creator) && onHover?(
                                 <i className="fa-solid fa-trash-can float-end text-danger mt-3 cursor-pointer" onClick={() => setModalShow(true)}></i>
                             ) : ''    
                             }
-                            <DeleteModal show={modalShow} onHide={() => setModalShow(false)}  object_name="Project" deleteObject={deleteProject} />
+                            <DeleteModal show={modalShow} onHide={() => setModalShow(false)}  object_name="Project" deleteObject={()=>deleteProject(project.id)} />
                             <div>
                                 <header>
                                     <Link to={`project/${project.id}`} className={`text-decoration-none ${onHover ? 'text-white' : 'text-dark'}`}>{project.name}</Link>

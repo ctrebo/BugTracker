@@ -1,19 +1,18 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import axios from 'axios';
 import PrivateRoutes from './utils/PrivateRoutes';
 
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import IssuesListProject from './pages/IssuesListProject';
-import IssueDetail from './pages/IssueDetail';
-import Profilpage from './pages/Profilpage';
-import SidebarProjectDetail from './components/SidebarProjectDetail';
+// import IssuesListProject from './pages/IssuesListProject';
+// import IssueDetail from './pages/IssueDetail';
+import ProjectDetail from './pages/ProjectDetail';
+// import Profilpage from './pages/Profilpage';
+// import SidebarProjectDetail from './components/SidebarProjectDetail';
 import NavbarComp from './components/NavbarComp';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
-import useAxios from './utils/useAxios';
 
 const App = () => {
 
@@ -27,6 +26,7 @@ const App = () => {
                             <Route element={<PrivateRoutes />}>
 
                                 <Route path="/" element={<Dashboard />} />
+                                <Route path="/project/:projectid" element={<ProjectDetail />} />
                                {/*  <Route path="/project/:projectid/issues" element={<IssuesListProject/>} /> 
                                  <Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} />
                                  <Route path="/profil-page" element={<Profilpage />} /> */}
