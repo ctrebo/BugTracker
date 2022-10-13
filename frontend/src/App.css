@@ -101,6 +101,11 @@ article small a:hover {
     width: 44px;
 }
 
+.img-project-detail-wrap {
+    height: 60px;
+    width: 60px;
+}
+
 .bg-project {
     background-color: #fff;
     color: #000;

@@ -23,12 +23,15 @@ def getProjectsByUser(request):
 
     serializer = ProjectSerializer(project_query, many=True)
     
-    print(f"{project_query=}")
-    
     # return Response(serializer.data)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getLoggedInUser(request):
+    serializer = UserSerializer(request.user ,many=False)
 
+    return Response(serializer.data)
 
 class DashbordView(APIView):
     permission_classes = [IsAuthenticated, ]

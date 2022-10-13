@@ -28,6 +28,19 @@ export const ProjectProvider = ({children}) => {
         }
     };
 
+    const usernameInTeamMembers = (project, username) => {
+        for (const user of project.team_members) {
+            if(user.username === username) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    const canAccessProject = (project, username) => {
+        return (project.creator.username === username || usernameInTeamMembers(project, username));
+    }
+
 	useEffect(() => {
         fetchProjects();
 	}, []);
@@ -37,6 +50,7 @@ export const ProjectProvider = ({children}) => {
         setProjects: setProjects,
         fetchProject: fetchProject,
         deleteProject: deleteProject,
+        canAccessProject: canAccessProject,
     }
 
     return (

@@ -8,7 +8,7 @@ import Signup from './pages/Signup';
 // import IssuesListProject from './pages/IssuesListProject';
 // import IssueDetail from './pages/IssueDetail';
 import ProjectDetail from './pages/ProjectDetail';
-// import Profilpage from './pages/Profilpage';
+import Profilpage from './pages/Profilpage';
 // import SidebarProjectDetail from './components/SidebarProjectDetail';
 import NavbarComp from './components/NavbarComp';
 import { AuthProvider } from './context/AuthContext';
@@ -28,8 +28,8 @@ const App = () => {
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="/project/:projectid" element={<ProjectDetail />} />
                                {/*  <Route path="/project/:projectid/issues" element={<IssuesListProject/>} /> 
-                                 <Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} />
-                                 <Route path="/profil-page" element={<Profilpage />} /> */}
+                                 <Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} /> */}
+                                 <Route path="/profil-page" element={<Profilpage />} /> 
                             </Route>
                             <Route path="/login" element={<Login />} />
                             <Route path="/signup" element={<Signup />} />

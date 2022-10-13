@@ -38,7 +38,7 @@ const Project = ({ project }) => {
                                 {onHover ? (
                                     <article className="text-white">
                                         <small>
-                                            <Link className="text-decoration-none text-white" to={`project/${project.id}/issues`}>Issue</Link> |{' '}
+                                            <Link className="text-decoration-none text-white" to={`project/${project.id}/issues`}>Issues</Link> |{' '}
                                             <Link to={`project/${project.id}/issues/add`} className="text-decoration-none text-white">Add Issue</Link>
                                         </small>
                                     </article>
