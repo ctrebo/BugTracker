@@ -10,6 +10,7 @@ urlpatterns = [
     path("users/", views.UsersView.as_view(), name="users"),
     path("get-projects-by-user/", views.getProjectsByUser, name="get-projects-by-user"),
     path("logged-in-user/", views.getLoggedInUser, name="logged-in-user"),
+    path("issuesByProject/<int:project_pk>/", views.getIssuesByProject, name="issues-by-projct"),
 ]
 
 

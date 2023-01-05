@@ -33,6 +33,13 @@ def getLoggedInUser(request):
 
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getIssuesByProject(request, project_pk):
+    serializer = IssueSerializer(Issue.objects.filter(project__id=project_pk),many=True)
+
+    return Response(serializer.data)
+
 class DashbordView(APIView):
     permission_classes = [IsAuthenticated, ]
     parser_classes = (MultiPartParser, FormParser)
@@ -79,6 +86,9 @@ class ProjectView(APIView):
         project = self.get_object(pk)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
 
 class UserFilter(generics.ListAPIView):
     serializer_class = UserSerializer

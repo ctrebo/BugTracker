@@ -37,7 +37,7 @@ const Signup = () => {
     }
 
     return (
-        <Container className="pt-4">
+        <Container className="pt-5">
             <Row>
                 <Col xs={12} md={8} className='m-auto'>
                     <h1>Signup</h1>

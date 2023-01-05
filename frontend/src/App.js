@@ -5,7 +5,7 @@ import PrivateRoutes from './utils/PrivateRoutes';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-// import IssuesListProject from './pages/IssuesListProject';
+import IssuesListProject from './pages/IssuesListProject';
 // import IssueDetail from './pages/IssueDetail';
 import ProjectDetail from './pages/ProjectDetail';
 import Profilpage from './pages/Profilpage';
@@ -27,8 +27,8 @@ const App = () => {
 
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="/project/:projectid" element={<ProjectDetail />} />
-                               {/*  <Route path="/project/:projectid/issues" element={<IssuesListProject/>} /> 
-                                 <Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} /> */}
+                                 <Route path="/project/:projectid/issues" element={<IssuesListProject/>} /> 
+                                 {/* <Route path="/project/:projectid/issue/:issueid" element={<IssueDetail />} /> */}
                                  <Route path="/profil-page" element={<Profilpage />} /> 
                             </Route>
                             <Route path="/login" element={<Login />} />

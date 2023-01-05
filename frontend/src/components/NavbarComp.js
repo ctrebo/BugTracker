@@ -1,7 +1,9 @@
 import React, { useState, useEffect, Fragment, useContext } from "react";
-import { Navbar, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
 
 const NavbarComp = () => {
     

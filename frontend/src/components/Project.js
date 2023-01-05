@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react"
-import { Row, Col } from "react-bootstrap"
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import ProjectContext from "../context/ProjectContext";
 import DeleteModal from "./DeleteModal"
+
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 
 const Project = ({ project }) => {
@@ -33,7 +35,9 @@ const Project = ({ project }) => {
                             <DeleteModal show={modalShow} onHide={() => setModalShow(false)}  object_name="Project" deleteObject={()=>deleteProject(project.id)} />
                             <div>
                                 <header>
-                                    <Link to={`project/${project.id}`} className={`text-decoration-none ${onHover ? 'text-white' : 'text-dark'}`}>{project.name}</Link>
+                                    <b>
+                                        <Link to={`project/${project.id}`} className={`text-decoration-none ${onHover ? 'text-white' : 'text-dark'}`}>{project.name}</Link>
+                                    </b>
                                 </header>
                                 {onHover ? (
                                     <article className="text-white">

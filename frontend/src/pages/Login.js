@@ -11,7 +11,7 @@ const Login = () => {
     const {loginUser} = useContext(AuthContext);
     
     return (
-        <Container className="pt-4">
+        <Container className="pt-5">
             <Row>
                 <Col xs={12} className="m-auto text-center">
                     <h1>Login Page</h1>

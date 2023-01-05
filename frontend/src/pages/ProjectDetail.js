@@ -14,6 +14,7 @@ const ProjectDetail = () => {
     const [project, setProject] = useState({});
     const {fetchProject, canAccessProject} = useContext(ProjectContext);
     const {user} = useContext(AuthContext);
+
     const {projectid} = useParams();
     const navigate = useNavigate()
     
@@ -36,8 +37,8 @@ const ProjectDetail = () => {
     }, [])
     return (
         <>
-            <SidebarProjectDetail />            
-            <Container className="pt-4">
+            <SidebarProjectDetail project_id={projectid} />            
+            <Container className="pt-5">
                 <Row>
                     <Col xs={12} md={8} className="">
                         <article className="img-project-detail-wrap d-inline-block">

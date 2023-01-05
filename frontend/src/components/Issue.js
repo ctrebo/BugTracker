@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Row, Col } from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
 import {FaArrowUp, FaArrowDown, FaArrowRight} from 'react-icons/fa'
+
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import moment from 'moment'
 
