@@ -13,11 +13,11 @@ const Issue = ({issue}) => {
     const navigate = useNavigate();
 
     const getArrow = char => {
-        if (char === 'h') {
+        if (char === 3) {
             return <FaArrowUp className="text-danger" size={28} />;
-        } else if (char === 'm') {
+        } else if (char === 2) {
             return <FaArrowRight className="text-primary" size={28} />;
-        } else if (char === 'l') {
+        } else if (char === 1) {
             return <FaArrowDown className="text-success" size={28} />;
         }
     }

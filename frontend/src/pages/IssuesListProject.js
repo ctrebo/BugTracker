@@ -34,14 +34,14 @@ const IssuesListProject = () => {
         <>
             <SidebarProjectDetail project_id={projectid} />            
             <Container className="pt-5">
-                <Row class="mb-4">
+                <Row className="mb-4">
                     <Col xs={12} md={6} className="text-center m-auto">
                         <h3 className="text-decoration-underline">Project issues</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={12} >
-                        <Issues issues={issues} />
+                        <Issues issues={issues} setIssues={setIssues}/>
                     </Col>
                 </Row>
             </Container>

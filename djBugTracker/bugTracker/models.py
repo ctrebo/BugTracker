@@ -64,29 +64,27 @@ class Issue(models.Model):
     """
     assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL, related_name="tasks")
 
-    ISSUE_STATUS = (
-        ("o", "Open"),
-        ("p", "In Progress"),
-        ("r", "Resolved")
-    )
+    class Status(models.TextChoices):
+        OPEN = "o", "Open"
+        INPROGRSS = "p", "In Progrss"
+        RESOLVED = "r", "Resolved"
 
-    PRIORITY_CHOICES = (
-        ("h", "High"),
-        ("m", "Middle"),
-        ("l", "Low")
-    )
 
-    TYPE_COICES = (
-        ("i", "Improve"),
-        ("t", "Task"),
-        ("b", "Bug"),
-        ("r", "Request")
-    )
+    class Priority(models.IntegerChoices):
+        HIGH = 3 
+        MIDDLE = 2
+        LOW = 1
 
-    status   = models.CharField(max_length=1, choices=ISSUE_STATUS, blank=True, default="o")
-    priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES, blank=True)
+    class Types(models.TextChoices):
+        IMPROVE = "i",
+        TASK = "t"
+        BUG = "b"
+        REQUEST = "r"
+
+    status   = models.CharField(max_length=1, choices=Status.choices, blank=True, default=Status.OPEN)
+    priority = models.IntegerField(choices=Priority.choices, blank=True)
     due      = models.DateTimeField()
-    issue_type = models.CharField(max_length=1, choices=TYPE_COICES, blank=True)
+    issue_type = models.CharField(max_length=1, choices=Types.choices, blank=True)
 
     class Meta:
         ordering = ["priority"]
