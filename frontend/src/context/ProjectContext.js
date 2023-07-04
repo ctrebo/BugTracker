@@ -8,6 +8,13 @@ export const ProjectProvider = ({children}) => {
     const [projects, setProjects] = useState([]);
     const api = useAxios();
 
+	useEffect(() => {
+        const execute = async () => {
+            await fetchProjects();
+        }
+        execute();
+	}, []);
+
     const fetchProjects = async() => {
         const res = await api.get("/tracker/get-projects-by-user/");
         setProjects(res.data);
@@ -41,14 +48,12 @@ export const ProjectProvider = ({children}) => {
         return (project.creator.username === username || usernameInTeamMembers(project, username));
     }
 
-	useEffect(() => {
-        fetchProjects();
-	}, []);
 
     const contextData = {
         projects: projects,
         setProjects: setProjects,
         fetchProject: fetchProject,
+        fetchProjects: fetchProjects,
         deleteProject: deleteProject,
         canAccessProject: canAccessProject,
     }

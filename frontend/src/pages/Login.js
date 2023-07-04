@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import AuthContext from '../context/AuthContext';
+import ProjectContext from '../context/ProjectContext';
 
 
 const Login = () => {
@@ -9,7 +10,13 @@ const Login = () => {
     const [errors, setErrors] = useState(false);
 
     const {loginUser} = useContext(AuthContext);
-    
+    const {fetchProjects} = useContext(ProjectContext);
+
+    const login = async (event, username, password, setErrors) => {
+        await loginUser(event, username, password, setErrors);
+        await fetchProjects();
+    }
+
     return (
         <Container className="pt-5">
             <Row>
@@ -19,7 +26,7 @@ const Login = () => {
             </Row>
             <Row>
                 <Col xs={12} md={8} className="m-auto" >
-                    <Form onSubmit={event=>loginUser(event, username, password, setErrors)} className="mt-5">
+                    <Form onSubmit={event=>login(event, username, password, setErrors)} className="mt-5">
                         <Form.Group className="mb-3" controlId="formBasicUsername">
                             <Form.Control type="text" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)} required />
                         </Form.Group>
